@@ -1,0 +1,1 @@
+A simple app to test how AWS Auto Scaling works.
