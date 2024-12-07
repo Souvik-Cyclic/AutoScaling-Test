@@ -22,6 +22,9 @@ else
     echo "No existing image found"
 fi
 
+echo "Removing dangling images"
+docker image prune -f
+
 echo "Starting the container"
 docker run -d -p 5000:5000 --restart always --name $IMAGE_NAME $IMAGE_NAME
 echo "${IMAGE_NAME} is running on port 5000"
