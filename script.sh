@@ -1,30 +1,10 @@
 #!/bin/bash
-IMAGE_NAME="flask-app"
+
+REPO_URL="https://github.com/Souvik-Cyclic/AutoScaling-Test.git"
 
 echo "Pulling the latest changes from the repository"
-git pull origin main
+git pull $REPO_URL main
 
-echo "Building the docker image"
-docker build -t $IMAGE_NAME .
-
-if [ "$(docker ps -aq --filter "name=$IMAGE_NAME")" ]; then
-    echo "Stopping and removing the existing container"
-    docker stop $(docker ps -aq --filter "name=$IMAGE_NAME")
-    docker rm $(docker ps -aq --filter "name=$IMAGE_NAME")
-else
-    echo "No existing container found"
-fi
-
-if [ "$(docker images -q $IMAGE_NAME)" ]; then
-    echo "Removing the existing image"
-    docker rmi -f $IMAGE_NAME
-else
-    echo "No existing image found"
-fi
-
-echo "Removing dangling images"
-docker image prune -f
-
-echo "Starting the container"
-docker run -d -p 5000:5000 --restart always --name $IMAGE_NAME $IMAGE_NAME
-echo "${IMAGE_NAME} is running on port 5000"
+echo "Executing the operations script"
+chmod +x operations.sh
+bash operations.sh
