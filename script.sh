@@ -17,7 +17,7 @@ fi
 
 if [ "$(docker images -q $IMAGE_NAME)" ]; then
     echo "Removing the existing image"
-    docker rmi $IMAGE_NAME
+    docker rmi -f $IMAGE_NAME
 else
     echo "No existing image found"
 fi
