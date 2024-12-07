@@ -12,13 +12,6 @@ else
     echo "No existing container found"
 fi
 
-if [ "$(docker images -q $IMAGE_NAME)" ]; then
-    echo "Removing the existing image"
-    docker rmi -f $IMAGE_NAME
-else
-    echo "No existing image found"
-fi
-
 echo "Removing dangling images"
 docker image prune -f
 
