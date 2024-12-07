@@ -15,6 +15,13 @@ else
     echo "No existing container found"
 fi
 
+if [ "$(docker images -q $IMAGE_NAME)" ]; then
+    echo "Removing the existing image"
+    docker rmi $IMAGE_NAME
+else
+    echo "No existing image found"
+fi
+
 echo "Starting the container"
 docker run -d -p 5000:5000 --restart always --name $IMAGE_NAME $IMAGE_NAME
 echo "${IMAGE_NAME} is running on port 5000"
